@@ -94,8 +94,7 @@ main {
  * `article` contexts in Chrome, Firefox, and Safari.
  */
 h1 {
-	font-size: 2em;
-	margin: 0.67em 0;
+
 }
 
 /* Grouping content
@@ -198,7 +197,11 @@ img {
 
 /* Forms
 	 ========================================================================== */
-
+.nf-form-cont {
+	width: 100%!important;
+	min-width: 425px;
+}
+	 
 /**
  * 1. Change the font styles in all browsers.
  * 2. Remove the margin in Firefox and Safari.
@@ -508,7 +511,6 @@ a:active {
 .page-content,
 .entry-content,
 .entry-summary {
-	margin: 1.5em 0 0;
 }
 
 .page-links {
@@ -719,4 +721,22 @@ a:active {
 
 /* Overrides
 --------------------------------------------- */
+.entry-header .post-thumbnail img {
+margin: 60px 0; 
+  border-radius: 999px; /* adjust as needed */
+  max-width: 00px;
+}
 
+.page-template-default .page-content {
+	margin-top: 75px;
+}
+
+.page-template-default .page-content h1 {
+
+}
+
+@media screen and (max-width: 767px) {
+	.page-template-default .page-content {
+	margin-top: 25px;
+}
+}

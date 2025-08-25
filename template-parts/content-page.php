@@ -9,12 +9,15 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article class="page-content" id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<div id="w-node-_04262738-11c5-e4a5-5498-872146d9619f-7d0ee0ad" class="w-layout-layout wf-layout-layout">
+        <div class="w-layout-cell">
 	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+		<?php the_title( '<h1 class="entry-title big">', '</h1>' ); ?>
+			<?php rraps_post_thumbnail(); ?>
 	</header><!-- .entry-header -->
-
-	<?php rraps_post_thumbnail(); ?>
+        </div>
+        <div class="w-layout-cell">
 
 	<div class="entry-content">
 		<?php
@@ -28,6 +31,8 @@
 		);
 		?>
 	</div><!-- .entry-content -->
+        </div>
+      </div>
 
 	<?php if ( get_edit_post_link() ) : ?>
 		<footer class="entry-footer">

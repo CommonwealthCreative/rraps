@@ -35,12 +35,6 @@
   --black: black;
 }
 
-.w-backgroundvideo-backgroundvideoplaypausebutton:focus-visible {
-  outline-offset: 2px;
-  border-radius: 50%;
-  outline: 2px solid #3b79c3;
-}
-
 .w-layout-layout {
   grid-row-gap: 20px;
   grid-column-gap: 20px;
@@ -54,6 +48,12 @@
   justify-content: flex-start;
   align-items: flex-start;
   display: flex;
+}
+
+.w-backgroundvideo-backgroundvideoplaypausebutton:focus-visible {
+  outline-offset: 2px;
+  border-radius: 50%;
+  outline: 2px solid #3b79c3;
 }
 
 .w-layout-hflex {
@@ -112,8 +112,8 @@ p {
 
 a {
   color: #3f6189;
-  text-decoration: none;
   font-size: 16px;
+  text-decoration: none;
 }
 
 .background-video {
@@ -314,9 +314,9 @@ a {
   align-items: center;
   width: 100%;
   height: 60%;
+  margin-top: 100px;
   padding-left: 5%;
   padding-right: 5%;
-  margin-top:100px;
   display: flex;
   position: absolute;
 }
@@ -518,11 +518,15 @@ a {
   position: relative;
 }
 
-.map-background {
+.map-embed {
   z-index: 0;
   pointer-events: none;
   width: 100%;
   position: absolute;
+}
+
+.map-embed.on-page {
+  position: relative;
 }
 
 .note {
@@ -549,6 +553,29 @@ a {
   display: none;
   position: absolute;
   bottom: 55px;
+}
+
+.modal-content {
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 125px;
+  display: flex;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  overflow: auto;
+}
+
+.details {
+  padding-left: 0;
+}
+
+.small-headers {
+  font-size: 20px;
+  line-height: 40px;
 }
 
 @media screen and (max-width: 991px) {
@@ -709,6 +736,11 @@ a {
   }
 }
 
+#w-node-f772551a-d10e-ff73-d440-fbfe6340a496-7d0ee0ad, #w-node-_91fefecc-2339-0e40-ddb4-aaf68c090ed9-7d0ee0ad {
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+}
+
 #w-node-_04262738-11c5-e4a5-5498-872146d9619f-7d0ee0ad, #w-node-db38ef5d-fe15-482c-28d7-8dd182694d35-7d0ee0ad {
   grid-template-rows: auto;
   grid-template-columns: .5fr 1fr;
@@ -732,7 +764,7 @@ a {
 }
 
 @media screen and (max-width: 767px) {
-  #w-node-_04262738-11c5-e4a5-5498-872146d9619f-7d0ee0ad, #w-node-db38ef5d-fe15-482c-28d7-8dd182694d35-7d0ee0ad {
+  #w-node-f772551a-d10e-ff73-d440-fbfe6340a496-7d0ee0ad, #w-node-_04262738-11c5-e4a5-5498-872146d9619f-7d0ee0ad, #w-node-db38ef5d-fe15-482c-28d7-8dd182694d35-7d0ee0ad {
     grid-template-rows: auto;
     grid-template-columns: 1fr;
   }

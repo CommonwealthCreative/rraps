@@ -42,13 +42,13 @@
       <div data-w-id="73e31671-d4c6-e24f-0eb1-a5d6567225cd" class="nav-menu">
         <ul data-w-id="721557c2-7a1b-10a7-e91e-3828a123d82a" role="list" class="nav-links">
           <li class="m-nav-link-item">
-            <a href="index.html" aria-current="page" class="m-nav-link main w--current">home</a>
+            <a href="/" aria-current="page" class="m-nav-link main w--current">Home</a>
           </li>
           <li class="m-nav-link-item">
-            <a href="#" class="m-nav-link main">About</a>
+            <a href="/about" class="m-nav-link main">About</a>
           </li>
           <li class="m-nav-link-item">
-            <a href="#" class="m-nav-link main last">Contact</a>
+            <a href="/contact" class="m-nav-link main last">Contact</a>
           </li>
           <li class="m-nav-link-item">
             <a data-w-id="e0262db0-a499-e11a-3723-8f9fd4ac429b" href="#" class="button sm">Book Now</a>
@@ -66,11 +66,16 @@
     </div>
   </div>
   <div style="display:none;width:100%;height:0%" class="modal">
-      <a data-w-id="2808acb9-d39a-558e-fc5e-7adb5eba3210" href="#" class="modal-close w-inline-block">
+      <div style="display:none" class="modal-content"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/rraps-wordmark-white.svg" loading="lazy" alt="" class="footerlogo">
+      <div class="center">
+    <?php echo do_shortcode('[ninja_form id=2]'); ?>
+</div>
+    </div>
+      <a data-w-id="2808acb9-d39a-558e-fc5e-7adb5eba3210" style="display:none" href="#" class="modal-close w-inline-block">
         <div class="button close">
           <div class="m-nav-close-icon-wrapper"><img alt="close icon" src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/nav-close-icon.svg" class="m-nav-close-icon"></div>
         </div>
-      </a><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/rraps-wordmark-white.svg" loading="lazy" alt="" class="footerlogo">
+      </a>
     </div>
   <div class="mobile-nav">
       <div class="m-nav-toggle">
@@ -88,28 +93,7 @@
       <nav style="display:none;width:100%;height:0%" class="m-nav-overlay">
         <div style="-webkit-transform:translate3d(0, 110PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-moz-transform:translate3d(0, 110PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);-ms-transform:translate3d(0, 110PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);transform:translate3d(0, 110PX, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0);opacity:0" class="m-nav-content">
           <ul role="list" class="m-nav-list w-list-unstyled">
-            <li class="m-nav-link-item first-item"><img src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/rraps-wordmark-white.svg" loading="lazy" alt="" class="footerlogo"></li>
-            <li class="m-nav-link-item">
-              <a href="#" class="m-nav-link">Conservation</a>
-            </li>
-            <li class="m-nav-link-item">
-              <a href="#" class="m-nav-link">KayaK &amp; Canoe</a>
-            </li>
-            <li class="m-nav-link-item">
-              <a href="#" class="m-nav-link">tubing <span class="yellow">(Coming soon)</span></a>
-            </li>
-            <li class="m-nav-link-item">
-              <a href="#" class="m-nav-link">Fishing Tours</a>
-            </li>
-            <li class="m-nav-link-item">
-              <a href="#" class="m-nav-link">Hiking &amp; Camping</a>
-            </li>
-            <li class="m-nav-link-item">
-              <a href="#" class="m-nav-link">Scouting Trips</a>
-            </li>
-            <li class="m-nav-link-item last-item">
-              <a href="#" class="m-nav-link">watershed Access</a>
-            </li>
+            <?php echo rraps_render_primary_menu(); ?>
           </ul>
         </div>
       </nav>

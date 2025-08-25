@@ -126,7 +126,7 @@ get_header();
 </div>
   </section>
   <section class="data">
-    <div class="map-background w-embed w-iframe"><iframe src="https://snazzymaps.com/embed/733339" width="100%" height="700px" style="border:none;"></iframe></div>
+    <div class="map-embed w-embed w-iframe"><iframe src="https://snazzymaps.com/embed/733339" width="100%" height="700px" style="border:none;"></iframe></div>
     <div id="w-node-_4d243add-ee6b-3d96-7c68-a7ce82563416-7d0ee0ad" class="w-layout-layout data-stack wf-layout-layout">
       <div class="w-layout-cell">
         <div data-w-id="52b297e2-be9a-238e-2a29-db2700969c45" style="opacity:0" class="data-graph w-embed"><img src="https://waterdata.usgs.gov/nwisweb/graph?site_no=01664000&period=7&parm_cd=00065" alt="USGS gage height graph for the last 7 days at site 01664000"></div>

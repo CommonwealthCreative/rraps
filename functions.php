@@ -192,3 +192,91 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 	require get_template_directory() . '/inc/jetpack.php';
 }
 
+/**
+ * Primary menu helpers: add classes and render with logo.
+ */
+
+/* Add class to <a> tags */
+function rraps_nav_link_atts( $atts, $item, $args, $depth ) {
+	if ( isset( $args->theme_location ) && $args->theme_location === 'menu-1' ) {
+		$atts['class'] = isset( $atts['class'] ) ? trim( $atts['class'] . ' m-nav-link' ) : 'm-nav-link';
+	}
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'rraps_nav_link_atts', 10, 4 );
+
+/* Add class to <li> items */
+function rraps_nav_li_classes( $classes, $item, $args, $depth ) {
+	if ( isset( $args->theme_location ) && $args->theme_location === 'menu-1' ) {
+		$classes[] = 'm-nav-link-item';
+	}
+	return $classes;
+}
+add_filter( 'nav_menu_css_class', 'rraps_nav_li_classes', 10, 4 );
+
+/* Mark the LAST top‑level item only */
+function rraps_mark_last_top_level( $items, $args ) {
+	if ( ! isset( $args->theme_location ) || $args->theme_location !== 'menu-1' ) {
+		return $items;
+	}
+	$top_keys = array_keys( array_filter( $items, function ( $it ) {
+		return (int) $it->menu_item_parent === 0;
+	} ) );
+	if ( ! empty( $top_keys ) ) {
+		$last_key = end( $top_keys );
+		if ( isset( $items[ $last_key ] ) ) {
+			$items[ $last_key ]->classes[] = 'last-item';
+		}
+	}
+	return $items;
+}
+add_filter( 'wp_nav_menu_objects', 'rraps_mark_last_top_level', 10, 2 );
+
+/* Mark the LAST top-level item in Primary menu */
+if (!function_exists('rraps_mark_last_top_level')) {
+	function rraps_mark_last_top_level( $items, $args ) {
+		if ( ! isset( $args->theme_location ) || $args->theme_location !== 'menu-1' ) {
+			return $items;
+		}
+		$top_keys = array_keys( array_filter( $items, function ( $it ) {
+			return (int) $it->menu_item_parent === 0;
+		} ) );
+		if ( ! empty( $top_keys ) ) {
+			$last_key = end( $top_keys );
+			if ( isset( $items[ $last_key ] ) ) {
+				$items[ $last_key ]->classes[] = 'last-item';
+			}
+		}
+		return $items;
+	}
+	add_filter( 'wp_nav_menu_objects', 'rraps_mark_last_top_level', 10, 2 );
+}
+
+/* Helper to render Primary menu with logo always shown */
+if (!function_exists('rraps_render_primary_menu')) {
+	function rraps_render_primary_menu() {
+		$logo_li = '<li class="m-nav-link-item first-item' . ( has_nav_menu( 'menu-1' ) ? '' : ' last-item' ) . '">'
+		         . '<img src="' . esc_url( get_template_directory_uri() ) . '/images/rraps-wordmark-white.svg"'
+		         . ' loading="lazy" alt="" class="footerlogo"></li>';
+
+		if ( has_nav_menu( 'menu-1' ) ) {
+			// Logo + dynamic items with correct classes; no fallback list.
+			return wp_nav_menu( array(
+				'theme_location' => 'menu-1',
+				'container'      => false,
+				'echo'           => false,
+				'fallback_cb'    => '__return_empty_string',
+				'items_wrap'     => '<ul role="list" class="m-nav-list w-list-unstyled">'
+				                  . $logo_li
+				                  . '%3$s'
+				                  . '</ul>',
+			) );
+		}
+
+		// No menu assigned: only the logo (also marked last-item).
+		return '<ul role="list" class="m-nav-list w-list-unstyled">' . $logo_li . '</ul>';
+	}
+}
+
+
+
