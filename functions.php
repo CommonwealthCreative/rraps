@@ -278,5 +278,17 @@ if (!function_exists('rraps_render_primary_menu')) {
 	}
 }
 
+function rraps_menu_title_span( $title, $item, $args, $depth ) {
+    // Only target the Tubing menu item (ID 44 in your code)
+    if ( $item->ID == 44 ) {
+        $title = str_replace(
+            '(Summer 2026)',
+            '<span class="yellow">(Summer 2026)</span>',
+            $title
+        );
+    }
+    return $title;
+}
+add_filter( 'nav_menu_item_title', 'rraps_menu_title_span', 10, 4 );
 
 

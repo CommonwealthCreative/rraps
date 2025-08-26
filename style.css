@@ -198,8 +198,7 @@ img {
 /* Forms
 	 ========================================================================== */
 .nf-form-cont {
-	width: 100%!important;
-	min-width: 425px;
+	width: 600px;
 }
 	 
 /**
@@ -723,8 +722,8 @@ a:active {
 --------------------------------------------- */
 .entry-header .post-thumbnail img {
 margin: 60px 0; 
-  border-radius: 999px; /* adjust as needed */
-  max-width: 00px;
+
+  max-width: 0px;
 }
 
 .page-template-default .page-content {
@@ -738,5 +737,11 @@ margin: 60px 0;
 @media screen and (max-width: 767px) {
 	.page-template-default .page-content {
 	margin-top: 25px;
+}
+.nf-form-cont {
+	width: 280px;
+}
+.map-embed.on-page {
+	display: none;
 }
 }

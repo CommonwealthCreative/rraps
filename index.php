@@ -58,7 +58,7 @@ get_header();
           <h2>Sustainable adventures designed to preserve &amp; protect the river.</h2>
         </div>
         <div class="w-layout-cell">
-          <p>At RRAPS, every journey is more than just an outdoor experience—it’s part of a larger commitment to <a href="#"><span>preserving</span></a> the Rappahannock River and its surrounding wilderness. By guiding visitors responsibly through Virginia’s most scenic waters and trails, we are helping to protect fragile ecosystems, support conservation efforts, and ensure that the river’s beauty and wildlife endure for generations to come.</p>
+          <p>At RRAPS, every journey is more than just an outdoor experience—it’s part of a larger commitment to <a href="/conservation/"><span>preserving</span></a> the Rappahannock River and its surrounding wilderness. By guiding visitors responsibly through Virginia’s most scenic waters and trails, we are helping to protect fragile ecosystems, support conservation efforts, and ensure that the river’s beauty and wildlife endure for generations to come.</p>
         </div>
       </div>
     </div>
@@ -67,7 +67,7 @@ get_header();
     </div>
     <div id="w-node-_5d0826e0-16c4-c95c-eacd-1e6168e60f0b-7d0ee0ad" data-w-id="5d0826e0-16c4-c95c-eacd-1e6168e60f0b" style="opacity:0" class="w-layout-layout container image-cta wf-layout-layout">
       <div class="w-layout-cell">
-        <a href="#" class="center w-inline-block"><img
+        <a href="/kayak-canoe/" class="center w-inline-block"><img
   src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/rappahannock-river-adventure-programs-paddle_1.webp"
   loading="lazy"
   decoding="async"
@@ -85,7 +85,7 @@ get_header();
         </a>
       </div>
       <div class="w-layout-cell">
-        <a href="#" class="center w-inline-block"><img
+        <a href="/fishing/" class="center w-inline-block"><img
   src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/rappahannock-river-adventure-programs-fishing_1.webp"
   loading="lazy"
   decoding="async"
@@ -103,7 +103,7 @@ get_header();
         </a>
       </div>
       <div class="w-layout-cell">
-        <a href="#" class="center w-inline-block"><img
+        <a href="/camp-hike/" class="center w-inline-block"><img
   src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/rappahannock-river-adventure-programs-camp-hike_1.webp"
   loading="lazy"
   decoding="async"

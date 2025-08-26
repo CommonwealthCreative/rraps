@@ -525,7 +525,7 @@ a {
   position: absolute;
 }
 
-.map-embed.on-page {
+.map-embed.contact {
   position: relative;
 }
 
@@ -757,7 +757,7 @@ a {
 }
 
 @media screen and (max-width: 991px) {
-  #w-node-_5d0826e0-16c4-c95c-eacd-1e6168e60f0b-7d0ee0ad, #w-node-_4d243add-ee6b-3d96-7c68-a7ce82563416-7d0ee0ad {
+  #w-node-f772551a-d10e-ff73-d440-fbfe6340a496-7d0ee0ad, #w-node-_91fefecc-2339-0e40-ddb4-aaf68c090ed9-7d0ee0ad, #w-node-_5d0826e0-16c4-c95c-eacd-1e6168e60f0b-7d0ee0ad, #w-node-_4d243add-ee6b-3d96-7c68-a7ce82563416-7d0ee0ad {
     grid-template-rows: auto;
     grid-template-columns: 1fr;
   }
