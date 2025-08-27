@@ -290,5 +290,3 @@ function rraps_menu_title_span( $title, $item, $args, $depth ) {
     return $title;
 }
 add_filter( 'nav_menu_item_title', 'rraps_menu_title_span', 10, 4 );
-
-
