@@ -1,0 +1,71 @@
+.single-trip .wpte-trip-feat-img img {
+  width: 100% !important;
+  height: 75vh !important;
+  object-fit: cover;         /* maintain ratio, crop overflow */
+  display: block;
+}
+
+.single-trip .wte-title-duration .days {
+  color: #000 !important;
+  text-shadow: none !important;
+}
+
+.wte-title-duration .duration {
+  background: #F9B418;
+}
+
+.single-trip .entry-header {padding:0px; min-height: auto; padding-bottom:0px!important;}
+
+.nav-tab-wrapper {
+  border-color: transparent;
+}
+
+.nav-tab-wrapper .tab-anchor-wrapper .nav-tab.nav-tab-active {
+  border-bottom: 1px solid #F9B418;
+}
+
+.tab-content .content {
+  padding-top:0px;
+  padding-bottom: 0px;
+}
+
+.wpte-booking-area .wpte-bf-price-wrap .wpte-bf-price {
+      padding: 0 26px 0 !important;
+}
+
+.inquiry-form {
+  padding: 0 0 100px;
+}
+
+input.enquiry-submit, input[type=submit], .wpte-booking-area .wpte-bf-btn, .wte-process-tab-controller .wte-process-btn-next {
+    color: #fff;
+    background-color: #131921;
+    border-radius: 99em;
+    justify-content: center;
+    align-items: center;
+    padding: 19px 25px 17px;
+    font-family: Fxbg Rounded, Arial, sans-serif;
+    font-size: 16px;
+    transition: all .7s ease-in-out;
+    position: relative;
+}
+
+input.enquiry-submit:hover,
+input[type=submit]:hover,
+.wpte-booking-area .wpte-bf-btn:hover,
+.wte-process-tab-controller .wte-process-btn-next:hover {
+  background: #F9B418;
+  opacity: 1;
+    filter: none;
+}
+
+
+#enquiry_submit_button, .enquiry-form-title, .package-name-holder {
+  margin: 10px auto!important;
+  text-align: center;
+
+}
+
+.parsley-errors-list {
+  color: red;
+}

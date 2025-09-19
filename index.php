@@ -122,7 +122,7 @@ get_header();
       </div>
     </div>
     <div class="center">
-        <p class="note"><span class="red">Important:</span> Your adventure depends on the conditions of the river and the weather. Make sure you know them and come prepared, rain or shine.</p>
+        <p class="note"><span class="red"><b>Important:</b></span> Your adventure depends on the conditions of the river and the weather. Make sure you know them and come prepared, rain or shine.<br><b class="">A U.S. Coast Guard–approved life jacket must be worn at all times.</b></p>
 </div>
   </section>
   <section class="data">
@@ -138,6 +138,26 @@ get_header();
 
   </section>
 	</main><!-- #main -->
+<script>
+(function(){
+  // Path to your intro audio file
+  const INTRO_AUDIO_URL = "/wp-content/themes/rraps/audio/rraps-opening-audio.mp3";
 
+  // Create audio element
+  const intro = new Audio(INTRO_AUDIO_URL);
+  intro.preload = "auto";
+  intro.playsInline = true;
+
+  function startIntro(){
+    document.body.removeEventListener("click", startIntro);
+    intro.play().catch(err => {
+      console.warn("Playback failed:", err);
+    });
+  }
+
+  // First click anywhere starts the audio
+  document.body.addEventListener("click", startIntro, { once:true });
+})();
+</script>
 <?php
 get_footer();

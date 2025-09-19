@@ -134,36 +134,48 @@ function rraps_widgets_init() {
 }
 add_action( 'widgets_init', 'rraps_widgets_init' );
 
-/**
- * Enqueue scripts and styles.
- */
 function rraps_scripts() {
-	 // Enqueue Normalize first (base styles)
-    wp_enqueue_style('normalize-styles', get_template_directory_uri() . '/css/normalize.css', array(), '1.0.0', 'all');
+	// Enqueue Normalize first (base styles)
+	wp_enqueue_style('normalize-styles', get_template_directory_uri() . '/css/normalize.css', array(), '1.0.0', 'all');
 
-    // Enqueue Webflow styles next
-    wp_enqueue_style('webflow-styles', get_template_directory_uri() . '/css/webflow.css', array('normalize-styles'), '1.0.0', 'all');
+	// Enqueue Webflow styles next
+	wp_enqueue_style('webflow-styles', get_template_directory_uri() . '/css/webflow.css', array('normalize-styles'), '1.0.0', 'all');
 
-    // Enqueue theme's primary stylesheet last (if needed)
-    wp_enqueue_style( 'the-commonwealth-theme-mmxxv-style', get_stylesheet_uri(), array(), _S_VERSION );
-    wp_style_add_data( 'the-commonwealth-theme-mmxxv-style', 'rtl', 'replace' );
+	// Theme stylesheet(s)
+	wp_enqueue_style( 'the-commonwealth-theme-mmxxv-style', get_stylesheet_uri(), array(), _S_VERSION );
+	wp_style_add_data( 'the-commonwealth-theme-mmxxv-style', 'rtl', 'replace' );
 
-    // Enqueue Common MMXXV LAST to override Webflow styles
-    wp_enqueue_style('mmxxv-styles', get_template_directory_uri() . '/css/myrappahannockriver-com.webflow.css', array('webflow-styles'), '1.0.0', 'all');
+	// Webflow export (keep before overrides)
+	wp_enqueue_style('mmxxv-styles', get_template_directory_uri() . '/css/myrappahannockriver-com.webflow.css', array('webflow-styles'), '1.0.0', 'all');
 
-    // Enqueue scripts
-    wp_enqueue_script('webflow-js', get_template_directory_uri() . '/js/webflow.js', array('jquery'), '1.0.0', true);
+	// Scripts
+	wp_enqueue_script('webflow-js', get_template_directory_uri() . '/js/webflow.js', array('jquery'), '1.0.0', true);
 
 	wp_enqueue_style( 'rraps-style', get_stylesheet_uri(), array(), _S_VERSION );
 	wp_style_add_data( 'rraps-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'rraps-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
 
+	// --- WP Travel Engine overrides (LOAD LAST) ---
+	$wte_css_rel  = '/css/wte-overrides.css';
+	$wte_css_path = get_template_directory() . $wte_css_rel;
+	$wte_css_uri  = get_template_directory_uri() . $wte_css_rel;
+	$wte_ver      = file_exists( $wte_css_path ) ? filemtime( $wte_css_path ) : '1.0.0';
+
+	wp_enqueue_style(
+		'wte-overrides',
+		$wte_css_uri,
+		array('mmxxv-styles', 'rraps-style'),
+		$wte_ver,
+		'all'
+	);
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'rraps_scripts' );
+
 
 /**
  * Implement the Custom Header feature.
@@ -214,23 +226,26 @@ function rraps_nav_li_classes( $classes, $item, $args, $depth ) {
 }
 add_filter( 'nav_menu_css_class', 'rraps_nav_li_classes', 10, 4 );
 
-/* Mark the LAST top‑level item only */
-function rraps_mark_last_top_level( $items, $args ) {
-	if ( ! isset( $args->theme_location ) || $args->theme_location !== 'menu-1' ) {
+// Mark the LAST top-level item in Primary menu
+if ( ! function_exists( 'rraps_mark_last_top_level' ) ) {
+	function rraps_mark_last_top_level( $items, $args ) {
+		if ( ! isset( $args->theme_location ) || $args->theme_location !== 'menu-1' ) {
+			return $items;
+		}
+		$top_keys = array_keys( array_filter( $items, function ( $it ) {
+			return (int) $it->menu_item_parent === 0;
+		} ) );
+		if ( ! empty( $top_keys ) ) {
+			$last_key = end( $top_keys );
+			if ( isset( $items[ $last_key ] ) ) {
+				$items[ $last_key ]->classes[] = 'last-item';
+			}
+		}
 		return $items;
 	}
-	$top_keys = array_keys( array_filter( $items, function ( $it ) {
-		return (int) $it->menu_item_parent === 0;
-	} ) );
-	if ( ! empty( $top_keys ) ) {
-		$last_key = end( $top_keys );
-		if ( isset( $items[ $last_key ] ) ) {
-			$items[ $last_key ]->classes[] = 'last-item';
-		}
-	}
-	return $items;
 }
 add_filter( 'wp_nav_menu_objects', 'rraps_mark_last_top_level', 10, 2 );
+
 
 /* Mark the LAST top-level item in Primary menu */
 if (!function_exists('rraps_mark_last_top_level')) {
@@ -290,3 +305,59 @@ function rraps_menu_title_span( $title, $item, $args, $depth ) {
     return $title;
 }
 add_filter( 'nav_menu_item_title', 'rraps_menu_title_span', 10, 4 );
+
+// Output pricing descriptions under each price row in WTE.
+add_filter( 'categorised_trip_price_display_format', function ( $html, $args ) {
+	if ( $html !== null ) {
+		return $html; // another filter already handled it
+	}
+
+	$categoryId = $args['category_id'] ?? 0;
+	$has_sale   = ! empty( $args['has_sale'] );
+	$price      = $args['price']      ?? '';
+	$sale_price = $args['sale_price'] ?? $price;
+	$per_label  = $args['per_label']  ?? '';
+
+	// Get the pricing category description from taxonomy.
+	$desc = '';
+	if ( $categoryId ) {
+		$term = get_term( $categoryId, 'trip-packages-categories' );
+		if ( $term && ! is_wp_error( $term ) && ! empty( $term->description ) ) {
+			$desc = $term->description;
+		}
+	}
+
+	$price_per_label = apply_filters( 'wte_trip_price_per_label_format', __('/ %s', 'wp-travel-engine') );
+
+	// Safe formatter if WTE isn’t available yet.
+	$fmt = function( $amount ) {
+		if ( function_exists( 'wte_the_formated_price' ) ) {
+			ob_start();
+			wte_the_formated_price( $amount );
+			return ob_get_clean();
+		}
+		return esc_html( $amount );
+	};
+
+	ob_start(); ?>
+	<div class="wpte-bf-price">
+		<span class="wpte-bf-reg-price">
+			<span class="wpte-bf-price-from"><?php esc_html_e( 'From', 'wp-travel-engine' ); ?></span>
+			<?php if ( $has_sale ) : ?>
+				<del><?php echo $fmt( $price ); ?></del>
+			<?php endif; ?>
+		</span>
+		<span class="wpte-bf-offer-price">
+			<ins class="wpte-bf-offer-amount"><?php echo $fmt( $sale_price ); ?></ins>
+			<div class="wpte-bf-pqty">
+				<?php printf( esc_html( $price_per_label ), esc_html( $per_label ) ); ?>
+			</div>
+		</span>
+		<?php if ( $desc ) : ?>
+			<div class="wpte-bf-description"><?php echo wp_kses_post( $desc ); ?></div>
+		<?php endif; ?>
+	</div>
+	<?php
+	return ob_get_clean();
+}, 10, 2 );
+
